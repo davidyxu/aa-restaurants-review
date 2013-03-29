@@ -30,5 +30,9 @@ class Critic
     RestaurantReview.average_score_by_critic(id)
   end
 
+  def unreviewed_restaurants
+    RestaurantReview.unreviewed_restaurants_by_critic(id)
+  end
+
 end
 

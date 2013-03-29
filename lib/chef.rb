@@ -31,6 +31,10 @@ class Chef
     Chef.find_by_id(mentor_id)
 	end
 
+  def reviews
+    RestaurantReviews.by_head_chef(id)
+  end
+
 	def name
     "#{first_name} #{last_name}"
 	end

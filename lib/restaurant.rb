@@ -27,7 +27,7 @@ class Restaurant
   end
 
   def average_review_score
-    RestaurantReview.average_by_restaurant(id)
+    RestaurantReview.average_score_by_restaurant(id)
   end
 
   def reviews
