@@ -1,0 +1,6 @@
+require_relative 'lib/db_connection'
+require_relative 'lib/chef'
+require_relative 'lib/restaurant'
+require_relative 'lib/chef_tenure'
+require_relative 'lib/critic'
+require_relative 'lib/restaurant_review'
