@@ -1,4 +1,4 @@
-CREATE TABLE chef (
+CREATE TABLE chefs (
 	id INTEGER PRIMARY KEY,
 	first_name VARCHAR(255) NOT NULL,
 	last_name VARCHAR(255) NOT NULL,
@@ -6,13 +6,13 @@ CREATE TABLE chef (
 	FOREIGN KEY (mentor) REFERENCES chef(id)
 );
 
-CREATE TABLE restaurant (
+CREATE TABLE restaurants (
 	id INTEGER PRIMARY KEY,
 	neighborhood VARCHAR(255) NOT NULL,
 	cuisine VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE cheftenure (
+CREATE TABLE cheftenures (
 	id INTEGER PRIMARY KEY,
 	chef_id INTEGER NOT NULL,
 	start_date DATE NOT NULL,
@@ -21,12 +21,12 @@ CREATE TABLE cheftenure (
 	FOREIGN KEY (chef_id) REFERENCES chef(id)
 );
 
-CREATE TABLE critic (
+CREATE TABLE critics (
 	id INTEGER PRIMARY KEY,
 	screen_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE restaurantreview (
+CREATE TABLE restaurantreviews (
 	id INTEGER PRIMARY KEY,
 	restaurant_id INTEGER NOT NULL,
 	critic_id INTEGER NOT NULL,

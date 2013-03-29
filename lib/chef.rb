@@ -2,7 +2,7 @@ class Chef
   def self.find_by_id(id)
     query_results = ReviewDB.instance.execute(<<-SQL, id)
       SELECT *
-        FROM chef
+        FROM chefs
        WHERE id = ?
     SQL
     Chef.new(query_results[0])
@@ -16,7 +16,7 @@ class Chef
     Chef.new(query_results[0])
   end
 
-	attr_accessor :first_name :last_name :mentor
+	attr_accessor :first_name, :last_name, :mentor
 	attr_reader :id
 
   def initialize(chef_details)
@@ -26,9 +26,9 @@ class Chef
     @mentor = chef_details["mentor"]
   end
 
-	def mentor
+	def find_mentor
     return nil if mentor.nil?
-    find_by_id(mentor)
+    Chef.find_by_id(mentor)
 	end
 
 	def name
@@ -38,20 +38,4 @@ class Chef
 	def tenures
     ChefTenure.find_by_chef(id)
 	end
-end
-
-class Restaurant
-
-end
-
-class ChefTenure
-
-end
-
-class Critic
-
-end
-
-class Restaurant Review
-
 end
