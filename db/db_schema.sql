@@ -2,8 +2,8 @@ CREATE TABLE chefs (
 	id INTEGER PRIMARY KEY,
 	first_name VARCHAR(255) NOT NULL,
 	last_name VARCHAR(255) NOT NULL,
-	mentor INTEGER,
-	FOREIGN KEY (mentor) REFERENCES chef(id)
+	mentor_id INTEGER,
+	FOREIGN KEY (mentor_id) REFERENCES chef(id)
 );
 
 CREATE TABLE restaurants (

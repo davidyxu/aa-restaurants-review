@@ -1,5 +1,6 @@
-INSERT INTO chefs (first_name, last_name, mentor)
-VALUES ('Bob', 'Smith', NULL), ('Delish', 'Cook', 1);
+INSERT INTO chefs (first_name, last_name, mentor_id)
+VALUES ('Bob', 'Smith', NULL), ('Delish', 'Cook', 1),
+       ('Jimmy', 'Jim', 1), ('Oompa', 'Loompa', 2);
 
 INSERT INTO restaurants (neighborhood, cuisine)
 VALUES ('yumville', 'yummy cuisine'), ('yuckville', 'yucky cuisine');
