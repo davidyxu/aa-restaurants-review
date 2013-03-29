@@ -18,17 +18,19 @@ class ChefTenure
 
   def self.coworkers(id)
     query_results = ReviewDB.instance.execute(<<-SQL, id)
-      SELECT coworkers.*
+    SELECT chefs.*
+      FROM chefs JOIN (
+      SELECT coworkers.chef_id
       FROM cheftenures AS coworkers JOIN (SELECT *
                                             FROM cheftenures
                                            WHERE chef_id = ?) AS chef
                        ON coworkers.restaurant_id = chef.restaurant_id
       WHERE (coworkers.start_date <= chef.end_date OR chef.end_date IS NULL)
         AND (coworkers.end_date IS NULL OR coworkers.end_date >= chef.start_date)
-        AND coworkers.chef_id != chef.chef_id
+        AND coworkers.chef_id != chef.chef_id) AS actual_coworkers
+        ON chefs.id = actual_coworkers.chef_id
     SQL
-
-    query_results.map { |result| Chef.find_by_id(result['chef_id']) }
+    query_results.map { |result| Chef.new(result) }
   end
 
   attr_reader :chef_id, :id, :start_date, :end_date, :head_chief

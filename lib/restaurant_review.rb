@@ -35,25 +35,31 @@ class RestaurantReview
 
   def self.at_least_n_reviews(n)
     query_results = ReviewDB.instance.execute(<<-SQL, n)
-      SELECT restaurant_id
-        FROM restaurantreviews
-    GROUP BY restaurant_id
-      HAVING COUNT(*) >= ?
-    ORDER BY COUNT(*) DESC
+    SELECT restaurants.*
+      FROM restaurants JOIN (
+          SELECT restaurant_id
+            FROM restaurantreviews
+        GROUP BY restaurant_id
+          HAVING COUNT(*) >= ?
+        ORDER BY COUNT(*) DESC) AS n_reviews
+        ON restaurants.id = n_reviews.restaurant_id
     SQL
 
-    query_results.map { |result| Restaurant.by_id(result['restaurant_id'])}
+    query_results.map { |result| Restaurant.new(result)}
   end
 
   def self.top_rated(n)
     query_results = ReviewDB.instance.execute(<<-SQL)[0...n]
-      SELECT restaurant_id
-        FROM restaurantreviews
-    GROUP BY restaurant_id
-    ORDER BY AVG(score) DESC
+    SELECT restaurants.*
+      FROM restaurants JOIN (
+          SELECT restaurant_id
+            FROM restaurantreviews
+        GROUP BY restaurant_id
+        ORDER BY AVG(score) DESC) AS top_rated
+        ON restaurants.id = top_rated.restaurant_id
     SQL
 
-    query_results.map { |result| Restaurant.by_id(result['restaurant_id'])}
+    query_results.map { |result| Restaurant.new(result)}
   end
 
   def self.average_score_by(type, criteria)
