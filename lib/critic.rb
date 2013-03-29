@@ -7,9 +7,11 @@ class Critic
     SQL
     Critic.new(query_results[0])
   end
+
   def self.by_id(id)
     Critic.find_by('id', id)
   end
+
   def self.by_screen_name(screen_name)
     Critic.find_by('screen_name', screen_name)
   end

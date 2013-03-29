@@ -1,5 +1,5 @@
 class Chef
-  def self.find_by_id(id)
+  def self.by_id(id)
     query_results = ReviewDB.instance.execute(<<-SQL, id)
       SELECT *
         FROM chefs
@@ -7,7 +7,7 @@ class Chef
     SQL
     Chef.new(query_results[0])
   end
-  def self.find_by_name(first_name, last_name)
+  def self.by_name(first_name, last_name)
     query_results = ReviewDB.instance.execute(<<-SQL, first_name, last_name)
       SELECT *
         FROM chef
@@ -28,7 +28,7 @@ class Chef
 
 	def mentor
     return nil if mentor_id.nil?
-    Chef.find_by_id(mentor_id)
+    Chef.by_id(mentor_id)
 	end
 
   def reviews

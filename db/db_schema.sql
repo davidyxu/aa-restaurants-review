@@ -17,7 +17,7 @@ CREATE TABLE cheftenures (
 	chef_id INTEGER NOT NULL,
 	restaurant_id INTEGER NOT NULL,
 	start_date DATE NOT NULL,
-	end_date DATE,
+	end_date DATE NOT NULL,
 	head_chief INTEGER NOT NULL,
 	FOREIGN KEY (restaurant_id) REFERENCES restaurant(id),
 	FOREIGN KEY (chef_id) REFERENCES chef(id)

@@ -17,6 +17,9 @@ class Restaurant
     Restaurant.find_by("neighborhood", neighborhood)
   end
 
+  def self.top_restaurants(n)
+    Restaurant.top_rated(n)
+  end
 
   attr_reader :id
 
