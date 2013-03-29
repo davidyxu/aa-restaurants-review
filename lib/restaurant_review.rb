@@ -5,6 +5,7 @@ class RestaurantReview
         FROM restaurantreviews
        WHERE #{type} = ?
     SQL
+
     query_results.map { |result| RestaurantReview.new(result) }
   end
 
@@ -28,6 +29,8 @@ class RestaurantReview
        AND (reviews.review_date <= headchef_tenures.end_date
         OR headchef_tenures.end_date IS NULL)
     SQL
+
+    query_results.map { |result| RestaurantReview.new(result) }
   end
 
   def self.average_score_by(type, criteria)
@@ -36,6 +39,7 @@ class RestaurantReview
         FROM restaurantreviews
        WHERE #{type} = ?
     SQL
+
     query_results[0]["avg_score"]
   end
 
@@ -49,9 +53,15 @@ class RestaurantReview
 
   def self.unreviewed_restaurants_by_critic(id)
     query_results = ReviewDB.instance.execute(<<-SQL, id)
-
+      SELECT restaurants.*
+        FROM restaurants LEFT JOIN (SELECT DISTINCT restaurant_id
+                                      FROM restaurantreviews
+                                     WHERE critic_id = ?) AS reviewed
+                                ON restaurants.id = reviewed.restaurant_id
+       WHERE reviewed.restaurant_id IS NULL
     SQL
-    #query_results.map { |result| Restaurant.new(result) }
+
+    query_results.map { |result| Restaurant.new(result) }
   end
 
   attr_accessor :text_review, :score

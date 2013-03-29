@@ -27,6 +27,8 @@ class ChefTenure
         AND (coworkers.end_date IS NULL OR coworkers.end_date >= chef.start_date)
         AND coworkers.chef_id != chef.chef_id
     SQL
+
+    query_results.map { |result| Chef.find_by_id(result['chef_id']) }
   end
 
   attr_reader :chef_id, :id, :start_date, :end_date, :head_chief
